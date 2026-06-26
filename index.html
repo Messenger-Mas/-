@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WebMarket - Продажа готовых сайтов</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>3D Паркур - Беги и прыгай!</title>
     <style>
         * {
             margin: 0;
@@ -12,732 +11,673 @@
             box-sizing: border-box;
         }
 
-        :root {
-            --primary: #6c5ce7;
-            --secondary: #a8a4e6;
-            --dark: #2d3436;
-            --light: #f8f9fa;
-            --accent: #fd79a8;
-            --gradient: linear-gradient(135deg, #6c5ce7 0%, #a8a4e6 100%);
-        }
-
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: var(--dark);
-            background: var(--light);
-        }
-
-        /* Header */
-        header {
-            background: white;
-            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-        }
-
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 1rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 2rem;
-            font-weight: 800;
-            background: var(--gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-decoration: none;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-            align-items: center;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: var(--dark);
-            font-weight: 500;
-            transition: color 0.3s;
-        }
-
-        .nav-links a:hover {
-            color: var(--primary);
-        }
-
-        .cart-icon {
-            position: relative;
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-
-        .cart-count {
-            position: absolute;
-            top: -10px;
-            right: -10px;
-            background: var(--accent);
-            color: white;
-            border-radius: 50%;
-            width: 20px;
-            height: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.75rem;
-            font-weight: bold;
-        }
-
-        /* Hero Section */
-        .hero {
-            margin-top: 80px;
-            background: var(--gradient);
-            color: white;
-            padding: 6rem 2rem;
-            text-align: center;
-        }
-
-        .hero h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-            animation: fadeInUp 1s ease;
-        }
-
-        .hero p {
-            font-size: 1.3rem;
-            margin-bottom: 2rem;
-            opacity: 0.9;
-        }
-
-        .hero-btn {
-            display: inline-block;
-            padding: 1rem 2.5rem;
-            background: white;
-            color: var(--primary);
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: 700;
-            font-size: 1.1rem;
-            transition: transform 0.3s, box-shadow 0.3s;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-        }
-
-        .hero-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
-        }
-
-        /* Products Section */
-        .products {
-            max-width: 1200px;
-            margin: 4rem auto;
-            padding: 0 2rem;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            color: var(--dark);
-        }
-
-        .filters {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 2rem;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .filter-btn {
-            padding: 0.5rem 1.5rem;
-            border: 2px solid var(--secondary);
-            background: white;
-            border-radius: 25px;
-            cursor: pointer;
-            font-weight: 500;
-            transition: all 0.3s;
-            color: var(--dark);
-        }
-
-        .filter-btn.active,
-        .filter-btn:hover {
-            background: var(--primary);
-            color: white;
-            border-color: var(--primary);
-        }
-
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .product-card {
-            background: white;
-            border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-
-        .product-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-        }
-
-        .product-image {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 3rem;
-        }
-
-        .product-info {
-            padding: 1.5rem;
-        }
-
-        .product-category {
-            display: inline-block;
-            padding: 0.25rem 0.75rem;
-            background: var(--secondary);
-            color: white;
-            border-radius: 15px;
-            font-size: 0.85rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .product-title {
-            font-size: 1.3rem;
-            margin-bottom: 0.5rem;
-            color: var(--dark);
-        }
-
-        .product-description {
-            color: #636e72;
-            margin-bottom: 1rem;
-            font-size: 0.95rem;
-        }
-
-        .product-price {
-            font-size: 1.8rem;
-            font-weight: 800;
-            color: var(--primary);
-            margin-bottom: 1rem;
-        }
-
-        .product-price span {
-            font-size: 1rem;
-            color: #636e72;
-            font-weight: normal;
-        }
-
-        .add-to-cart {
-            width: 100%;
-            padding: 0.75rem;
-            background: var(--gradient);
-            color: white;
-            border: none;
-            border-radius: 10px;
-            font-size: 1rem;
-            font-weight: 600;
+            font-family: 'Arial', sans-serif;
+            background: #000;
             cursor: pointer;
+        }
+
+        #ui {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: white;
+            font-size: 24px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+            z-index: 100;
+            pointer-events: none;
+        }
+
+        .score-panel {
+            background: rgba(0, 0, 0, 0.6);
+            padding: 15px 25px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            margin-bottom: 15px;
+            display: inline-block;
+        }
+
+        .combo {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 72px;
+            font-weight: bold;
+            color: #ffdd00;
+            text-shadow: 0 0 20px rgba(255, 221, 0, 0.8);
+            pointer-events: none;
+            z-index: 100;
+            opacity: 0;
             transition: opacity 0.3s;
         }
 
-        .add-to-cart:hover {
-            opacity: 0.9;
-        }
-
-        /* Features */
-        .features {
-            background: white;
-            padding: 4rem 2rem;
-            margin-top: 4rem;
-        }
-
-        .features-grid {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-        }
-
-        .feature-card {
+        #message {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 48px;
             text-align: center;
-            padding: 2rem;
-        }
-
-        .feature-icon {
-            font-size: 3rem;
-            color: var(--primary);
-            margin-bottom: 1rem;
-        }
-
-        .feature-title {
-            font-size: 1.3rem;
-            margin-bottom: 0.5rem;
-            font-weight: 700;
-        }
-
-        /* Cart Modal */
-        .modal {
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.8);
+            pointer-events: none;
+            z-index: 100;
             display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.5);
-            z-index: 2000;
-            justify-content: center;
-            align-items: center;
         }
 
-        .modal.active {
-            display: flex;
-        }
-
-        .modal-content {
-            background: white;
-            border-radius: 20px;
-            padding: 2rem;
-            max-width: 600px;
-            width: 90%;
-            max-height: 80vh;
-            overflow-y: auto;
-        }
-
-        .cart-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 0;
-            border-bottom: 1px solid #dfe6e9;
-        }
-
-        .cart-item button {
-            background: #ff7675;
+        #instructions {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
             color: white;
-            border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .checkout-btn {
-            width: 100%;
-            padding: 1rem;
-            background: var(--gradient);
-            color: white;
-            border: none;
-            border-radius: 10px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-top: 1rem;
-            cursor: pointer;
-        }
-
-        .close-modal {
-            float: right;
-            font-size: 1.5rem;
-            cursor: pointer;
-            background: none;
-            border: none;
-            color: var(--dark);
-        }
-
-        /* Footer */
-        footer {
-            background: var(--dark);
-            color: white;
-            padding: 3rem 2rem;
+            font-size: 18px;
             text-align: center;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 15px 30px;
+            border-radius: 15px;
+            pointer-events: none;
+            z-index: 100;
+            backdrop-filter: blur(5px);
         }
 
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem;
-            text-align: left;
+        .progress-bar {
+            width: 300px;
+            height: 10px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+            overflow: hidden;
+            margin-top: 10px;
         }
 
-        footer a {
-            color: var(--secondary);
-            text-decoration: none;
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #00ff88, #00ccff);
+            transition: width 0.1s;
+            border-radius: 5px;
         }
 
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .notification {
-            position: fixed;
-            bottom: 20px;
+        .coin-counter {
+            position: absolute;
+            top: 20px;
             right: 20px;
-            background: #00b894;
-            color: white;
-            padding: 1rem 2rem;
-            border-radius: 10px;
-            animation: slideIn 0.3s ease;
-            z-index: 3000;
-        }
-
-        @keyframes slideIn {
-            from {
-                transform: translateX(100%);
-            }
-            to {
-                transform: translateX(0);
-            }
+            color: #ffdd00;
+            font-size: 28px;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 10px 20px;
+            border-radius: 15px;
+            pointer-events: none;
+            z-index: 100;
+            backdrop-filter: blur(10px);
         }
     </style>
 </head>
 <body>
-    <!-- Header -->
-    <header>
-        <nav class="nav-container">
-            <a href="#" class="logo">WebMarket</a>
-            <div class="nav-links">
-                <a href="#products">Каталог</a>
-                <a href="#features">Преимущества</a>
-                <a href="#contact">Контакты</a>
-                <div class="cart-icon" onclick="toggleCart()">
-                    <i class="fas fa-shopping-cart"></i>
-                    <span class="cart-count" id="cartCount">0</span>
-                </div>
-            </div>
-        </nav>
-    </header>
-
-    <!-- Hero -->
-    <section class="hero">
-        <h1>Готовые сайты для вашего бизнеса</h1>
-        <p>Профессиональные решения с быстрой настройкой и запуском</p>
-        <a href="#products" class="hero-btn">Смотреть каталог</a>
-    </section>
-
-    <!-- Products -->
-    <section class="products" id="products">
-        <h2 class="section-title">Наши сайты</h2>
-        
-        <div class="filters">
-            <button class="filter-btn active" onclick="filterProducts('all')">Все</button>
-            <button class="filter-btn" onclick="filterProducts('business')">Бизнес</button>
-            <button class="filter-btn" onclick="filterProducts('shop')">Интернет-магазин</button>
-            <button class="filter-btn" onclick="filterProducts('landing')">Лендинг</button>
-            <button class="filter-btn" onclick="filterProducts('portfolio')">Портфолио</button>
-        </div>
-
-        <div class="products-grid" id="productsGrid">
-            <!-- Products will be inserted by JavaScript -->
-        </div>
-    </section>
-
-    <!-- Features -->
-    <section class="features" id="features">
-        <h2 class="section-title">Почему выбирают нас</h2>
-        <div class="features-grid">
-            <div class="feature-card">
-                <div class="feature-icon"><i class="fas fa-rocket"></i></div>
-                <div class="feature-title">Быстрый запуск</div>
-                <p>Сайт готов к работе в день покупки. Мы поможем с настройкой и размещением.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon"><i class="fas fa-mobile-alt"></i></div>
-                <div class="feature-title">Адаптивный дизайн</div>
-                <p>Все сайты отлично выглядят на любых устройствах - от смартфона до ПК.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon"><i class="fas fa-headset"></i></div>
-                <div class="feature-title">Поддержка 24/7</div>
-                <p>Техническая поддержка и консультации в любое время суток.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
-                <div class="feature-title">Гарантия безопасности</div>
-                <p>SSL-сертификаты и защита от взломов включены в стоимость.</p>
+    <div id="ui">
+        <div class="score-panel">
+            <div>🏃 Дистанция: <span id="scoreValue">0</span>м</div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
             </div>
         </div>
-    </section>
-
-    <!-- Cart Modal -->
-    <div class="modal" id="cartModal">
-        <div class="modal-content">
-            <button class="close-modal" onclick="toggleCart()">&times;</button>
-            <h2>Корзина</h2>
-            <div id="cartItems">
-                <p>Корзина пуста</p>
-            </div>
-            <div id="cartTotal" style="font-size: 1.3rem; font-weight: bold; margin-top: 1rem;"></div>
-            <button class="checkout-btn" onclick="checkout()">Оформить заказ</button>
-        </div>
+        <div style="font-size: 18px; margin-top: 10px;">🔥 Комбо: <span id="comboValue">x1</span></div>
+    </div>
+    
+    <div class="combo" id="comboText"></div>
+    <div class="coin-counter">🪙 <span id="coinsValue">0</span></div>
+    
+    <div id="message"></div>
+    <div id="instructions">
+        🎮 ПРОБЕЛ - прыжок | Двойной прыжок - выше! | Уклоняйся от препятствий
     </div>
 
-    <!-- Footer -->
-    <footer id="contact">
-        <div class="footer-content">
-            <div>
-                <h3>WebMarket</h3>
-                <p>Продажа готовых сайтов с 2020 года</p>
-            </div>
-            <div>
-                <h3>Контакты</h3>
-                <p>📧 info@webmarket.ru</p>
-                <p>📱 +7 (999) 123-45-67</p>
-            </div>
-            <div>
-                <h3>Услуги</h3>
-                <p><a href="#">Готовые сайты</a></p>
-                <p><a href="#">Настройка</a></p>
-                <p><a href="#">Поддержка</a></p>
-            </div>
-            <div>
-                <h3>Подписка</h3>
-                <input type="email" placeholder="Ваш email" style="padding: 0.5rem; width: 100%; margin-top: 0.5rem; border-radius: 5px; border: none;">
-                <button style="padding: 0.5rem 1rem; background: var(--primary); color: white; border: none; border-radius: 5px; margin-top: 0.5rem; cursor: pointer;">Подписаться</button>
-            </div>
-        </div>
-    </footer>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script>
-        // Product data
-        const products = [
-            {
-                id: 1,
-                title: 'Бизнес-сайт "Корпорация"',
-                category: 'business',
-                description: 'Многостраничный сайт для крупной компании с портфолио, блогом и контактами',
-                price: 45000,
-                image: '🏢'
-            },
-            {
-                id: 2,
-                title: 'Интернет-магазин "ShopPro"',
-                category: 'shop',
-                description: 'Полнофункциональный магазин с корзиной, оплатой и каталогом товаров',
-                price: 65000,
-                image: '🛍️'
-            },
-            {
-                id: 3,
-                title: 'Лендинг "Стартап"',
-                category: 'landing',
-                description: 'Одностраничный сайт для продвижения продукта или услуги',
-                price: 25000,
-                image: '🚀'
-            },
-            {
-                id: 4,
-                title: 'Портфолио "Творчество"',
-                category: 'portfolio',
-                description: 'Сайт-портфолио для дизайнеров, фотографов и художников',
-                price: 20000,
-                image: '🎨'
-            },
-            {
-                id: 5,
-                title: 'Магазин "FashionStore"',
-                category: 'shop',
-                description: 'Стильный интернет-магазин одежды с фильтрами и поиском',
-                price: 55000,
-                image: '👗'
-            },
-            {
-                id: 6,
-                title: 'Лендинг "Мероприятие"',
-                category: 'landing',
-                description: 'Сайт для конференций, вебинаров и онлайн-мероприятий',
-                price: 20000,
-                image: '📅'
-            },
-            {
-                id: 7,
-                title: 'Бизнес "Консалтинг"',
-                category: 'business',
-                description: 'Сайт для консалтинговой компании с формой обратной связи',
-                price: 40000,
-                image: '💼'
-            },
-            {
-                id: 8,
-                title: 'Портфолио "Фотограф"',
-                category: 'portfolio',
-                description: 'Сайт с галереей для фотографов с возможностью заказа',
-                price: 22000,
-                image: '📸'
-            }
-        ];
+        // Инициализация сцены
+        const scene = new THREE.Scene();
+        scene.fog = new THREE.Fog(0x87CEEB, 30, 150);
+        scene.background = new THREE.Color(0x87CEEB);
+        
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera.position.set(0, 3, 8);
+        camera.lookAt(0, 1, 0);
+        
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.shadowMap.enabled = true;
+        renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        document.body.appendChild(renderer.domElement);
 
-        // Cart state
-        let cart = [];
-        let currentFilter = 'all';
+        // Освещение
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+        scene.add(ambientLight);
+        
+        const sunLight = new THREE.DirectionalLight(0xffffff, 0.8);
+        sunLight.position.set(50, 50, 50);
+        sunLight.castShadow = true;
+        sunLight.shadow.mapSize.width = 1024;
+        sunLight.shadow.mapSize.height = 1024;
+        sunLight.shadow.camera.left = -30;
+        sunLight.shadow.camera.right = 30;
+        sunLight.shadow.camera.top = 30;
+        sunLight.shadow.camera.bottom = -30;
+        scene.add(sunLight);
 
-        // Display products
-        function displayProducts(filter = 'all') {
-            const grid = document.getElementById('productsGrid');
-            const filtered = filter === 'all' ? products : products.filter(p => p.category === filter);
-            
-            grid.innerHTML = filtered.map(product => `
-                <div class="product-card">
-                    <div class="product-image">${product.image}</div>
-                    <div class="product-info">
-                        <span class="product-category">${getCategoryName(product.category)}</span>
-                        <h3 class="product-title">${product.title}</h3>
-                        <p class="product-description">${product.description}</p>
-                        <div class="product-price">${product.price.toLocaleString()} ₽</div>
-                        <button class="add-to-cart" onclick="addToCart(${product.id})">
-                            <i class="fas fa-cart-plus"></i> В корзину
-                        </button>
-                    </div>
-                </div>
-            `).join('');
-        }
+        // Земля (бегущая дорожка)
+        const groundGeometry = new THREE.PlaneGeometry(20, 200);
+        const groundMaterial = new THREE.MeshStandardMaterial({ 
+            color: 0x444444,
+            roughness: 0.8,
+            metalness: 0.2
+        });
+        const ground = new THREE.Mesh(groundGeometry, groundMaterial);
+        ground.rotation.x = -Math.PI / 2;
+        ground.position.y = 0;
+        ground.receiveShadow = true;
+        scene.add(ground);
 
-        function getCategoryName(category) {
-            const names = {
-                'business': 'Бизнес',
-                'shop': 'Магазин',
-                'landing': 'Лендинг',
-                'portfolio': 'Портфолио'
-            };
-            return names[category] || category;
-        }
-
-        // Filter products
-        function filterProducts(category) {
-            currentFilter = category;
-            document.querySelectorAll('.filter-btn').forEach(btn => {
-                btn.classList.remove('active');
+        // Разметка дорожки
+        for (let i = -40; i < 40; i += 4) {
+            const lineGeometry = new THREE.PlaneGeometry(0.3, 2);
+            const lineMaterial = new THREE.MeshStandardMaterial({ 
+                color: 0xffffff,
+                roughness: 0.3,
+                emissive: 0x333333
             });
-            event.target.classList.add('active');
-            displayProducts(category);
+            const line = new THREE.Mesh(lineGeometry, lineMaterial);
+            line.rotation.x = -Math.PI / 2;
+            line.position.set(0, 0.01, i);
+            line.receiveShadow = true;
+            scene.add(line);
         }
 
-        // Cart functions
-        function addToCart(productId) {
-            const product = products.find(p => p.id === productId);
-            const existingItem = cart.find(item => item.id === productId);
+        // Игрок (паркур-бегун)
+        const playerGroup = new THREE.Group();
+        
+        // Тело
+        const bodyGeometry = new THREE.CapsuleGeometry(0.3, 0.8, 4, 8);
+        const bodyMaterial = new THREE.MeshStandardMaterial({ 
+            color: 0xff4444,
+            roughness: 0.3,
+            metalness: 0.5,
+            emissive: 0x330000
+        });
+        const body = new THREE.Mesh(bodyGeometry, bodyMaterial);
+        body.position.y = 1.2;
+        body.castShadow = true;
+        playerGroup.add(body);
+        
+        // Голова
+        const headGeometry = new THREE.SphereGeometry(0.3, 8, 8);
+        const headMaterial = new THREE.MeshStandardMaterial({ 
+            color: 0xffcc88,
+            roughness: 0.5
+        });
+        const head = new THREE.Mesh(headGeometry, headMaterial);
+        head.position.y = 2;
+        head.castShadow = true;
+        playerGroup.add(head);
+        
+        // Кепка
+        const capGeometry = new THREE.CylinderGeometry(0.32, 0.35, 0.15, 8);
+        const capMaterial = new THREE.MeshStandardMaterial({ color: 0x333333 });
+        const cap = new THREE.Mesh(capGeometry, capMaterial);
+        cap.position.y = 2.15;
+        playerGroup.add(cap);
+        
+        const capTopGeometry = new THREE.CylinderGeometry(0.25, 0.32, 0.2, 8);
+        const capTop = new THREE.Mesh(capTopGeometry, capMaterial);
+        capTop.position.y = 2.3;
+        playerGroup.add(capTop);
+        
+        // Руки
+        const armGeometry = new THREE.CapsuleGeometry(0.12, 0.5, 4, 8);
+        const armMaterial = new THREE.MeshStandardMaterial({ 
+            color: 0xff4444,
+            roughness: 0.3
+        });
+        
+        const leftArm = new THREE.Mesh(armGeometry, armMaterial);
+        leftArm.position.set(-0.4, 1.5, 0);
+        leftArm.rotation.z = 0.3;
+        leftArm.castShadow = true;
+        playerGroup.add(leftArm);
+        
+        const rightArm = new THREE.Mesh(armGeometry, armMaterial);
+        rightArm.position.set(0.4, 1.5, 0);
+        rightArm.rotation.z = -0.3;
+        rightArm.castShadow = true;
+        playerGroup.add(rightArm);
+        
+        // Ноги
+        const legGeometry = new THREE.CapsuleGeometry(0.14, 0.6, 4, 8);
+        const legMaterial = new THREE.MeshStandardMaterial({ 
+            color: 0x333366,
+            roughness: 0.4
+        });
+        
+        const leftLeg = new THREE.Mesh(legGeometry, legMaterial);
+        leftLeg.position.set(-0.2, 0.6, 0);
+        leftLeg.castShadow = true;
+        playerGroup.add(leftLeg);
+        
+        const rightLeg = new THREE.Mesh(legGeometry, legMaterial);
+        rightLeg.position.set(0.2, 0.6, 0);
+        rightLeg.castShadow = true;
+        playerGroup.add(rightLeg);
+        
+        playerGroup.position.set(0, 0, 0);
+        scene.add(playerGroup);
+
+        // Декоративные элементы окружения
+        const buildings = [];
+        for (let i = 0; i < 40; i++) {
+            const buildingGroup = new THREE.Group();
             
-            if (existingItem) {
-                existingItem.quantity++;
-            } else {
-                cart.push({ ...product, quantity: 1 });
-            }
+            const height = 3 + Math.random() * 15;
+            const width = 1 + Math.random() * 2;
+            const buildingGeometry = new THREE.BoxGeometry(width, height, width);
+            const buildingMaterial = new THREE.MeshStandardMaterial({ 
+                color: new THREE.Color().setHSL(Math.random() * 0.2 + 0.5, 0.5, 0.5),
+                roughness: 0.7
+            });
+            const building = new THREE.Mesh(buildingGeometry, buildingMaterial);
+            building.position.y = height / 2;
+            building.castShadow = true;
+            building.receiveShadow = true;
+            buildingGroup.add(building);
             
-            updateCart();
-            showNotification(`${product.title} добавлен в корзину`);
+            buildingGroup.position.set(
+                (Math.random() - 0.5) * 15,
+                0,
+                -30 + Math.random() * 120
+            );
+            scene.add(buildingGroup);
+            buildings.push({ group: buildingGroup, speed: 0.2 });
         }
 
-        function removeFromCart(productId) {
-            cart = cart.filter(item => item.id !== productId);
-            updateCart();
+        // Деревья
+        const trees = [];
+        for (let i = 0; i < 30; i++) {
+            const treeGroup = new THREE.Group();
+            
+            const trunkGeometry = new THREE.CylinderGeometry(0.2, 0.3, 2, 8);
+            const trunkMaterial = new THREE.MeshStandardMaterial({ color: 0x8B4513 });
+            const trunk = new THREE.Mesh(trunkGeometry, trunkMaterial);
+            trunk.position.y = 1;
+            trunk.castShadow = true;
+            treeGroup.add(trunk);
+            
+            const leavesGeometry = new THREE.ConeGeometry(1, 2, 8);
+            const leavesMaterial = new THREE.MeshStandardMaterial({ color: 0x228B22 });
+            const leaves = new THREE.Mesh(leavesGeometry, leavesMaterial);
+            leaves.position.y = 2.5;
+            leaves.castShadow = true;
+            treeGroup.add(leaves);
+            
+            treeGroup.position.set(
+                (Math.random() - 0.5) * 14,
+                0,
+                -30 + Math.random() * 120
+            );
+            scene.add(treeGroup);
+            trees.push({ group: treeGroup, speed: 0.2 });
         }
 
-        function updateCart() {
-            const count = cart.reduce((sum, item) => sum + item.quantity, 0);
-            document.getElementById('cartCount').textContent = count;
+        // Монеты
+        const coins = [];
+        function createCoin(z) {
+            const coinGroup = new THREE.Group();
             
-            if (document.getElementById('cartModal').classList.contains('active')) {
-                displayCartItems();
-            }
+            const coinGeometry = new THREE.CylinderGeometry(0.4, 0.4, 0.1, 16);
+            const coinMaterial = new THREE.MeshStandardMaterial({ 
+                color: 0xffdd00,
+                roughness: 0.2,
+                metalness: 0.9,
+                emissive: 0xffaa00
+            });
+            const coin = new THREE.Mesh(coinGeometry, coinMaterial);
+            coin.rotation.x = Math.PI / 2;
+            coin.castShadow = true;
+            coinGroup.add(coin);
+            
+            coinGroup.position.set(
+                (Math.random() - 0.5) * 6,
+                1 + Math.random() * 3,
+                z
+            );
+            scene.add(coinGroup);
+            coins.push(coinGroup);
         }
 
-        function displayCartItems() {
-            const cartItems = document.getElementById('cartItems');
-            const cartTotal = document.getElementById('cartTotal');
+        // Препятствия
+        const obstacles = [];
+        function createObstacle(z) {
+            const types = [
+                { geometry: new THREE.BoxGeometry(2, 2, 0.5), color: 0xff0000, height: 1 },
+                { geometry: new THREE.BoxGeometry(1, 3, 0.5), color: 0xff6600, height: 1.5 },
+                { geometry: new THREE.CylinderGeometry(0.5, 0.5, 2, 8), color: 0xff00ff, height: 1 },
+                { geometry: new THREE.BoxGeometry(3, 1, 0.5), color: 0xff4444, height: 0.5 }
+            ];
             
-            if (cart.length === 0) {
-                cartItems.innerHTML = '<p>Корзина пуста</p>';
-                cartTotal.innerHTML = '';
-                return;
-            }
+            const type = types[Math.floor(Math.random() * types.length)];
+            const obstacleGeometry = type.geometry;
+            const obstacleMaterial = new THREE.MeshStandardMaterial({ 
+                color: type.color,
+                roughness: 0.3,
+                metalness: 0.6,
+                emissive: new THREE.Color(type.color).multiplyScalar(0.3)
+            });
+            const obstacle = new THREE.Mesh(obstacleGeometry, obstacleMaterial);
+            obstacle.position.y = type.height;
+            obstacle.castShadow = true;
+            obstacle.receiveShadow = true;
             
-            cartItems.innerHTML = cart.map(item => `
-                <div class="cart-item">
-                    <div>
-                        <strong>${item.title}</strong>
-                        <p>${item.quantity} × ${item.price.toLocaleString()} ₽</p>
-                    </div>
-                    <div>
-                        <span>${(item.price * item.quantity).toLocaleString()} ₽</span>
-                        <button onclick="removeFromCart(${item.id})">Удалить</button>
-                    </div>
-                </div>
-            `).join('');
+            obstacle.position.set(
+                (Math.random() - 0.5) * 6,
+                type.height,
+                z
+            );
             
-            const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
-            cartTotal.innerHTML = `Итого: ${total.toLocaleString()} ₽`;
+            scene.add(obstacle);
+            obstacles.push(obstacle);
         }
 
-        function toggleCart() {
-            const modal = document.getElementById('cartModal');
-            modal.classList.toggle('active');
-            if (modal.classList.contains('active')) {
-                displayCartItems();
-            }
-        }
+        // Игровые переменные
+        let score = 0;
+        let coinsCollected = 0;
+        let combo = 1;
+        let maxCombo = 1;
+        let gameSpeed = 0.3;
+        let gameOver = false;
+        let playerVelocityY = 0;
+        let isJumping = false;
+        let canDoubleJump = true;
+        let jumpCount = 0;
+        const gravity = -0.025;
+        const jumpForce = 0.5;
+        const doubleJumpForce = 0.4;
+        let lastObstacleZ = -10;
+        let animationTime = 0;
 
-        function checkout() {
-            if (cart.length === 0) {
-                alert('Корзина пуста');
-                return;
-            }
+        // Управление
+        const keys = {};
+        window.addEventListener('keydown', (e) => {
+            keys[e.code] = true;
             
-            const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
-            const orderDetails = cart.map(item => 
-                `${item.title} - ${item.quantity} шт. - ${(item.price * item.quantity).toLocaleString()} ₽`
-            ).join('\n');
-            
-            alert(`Заказ оформлен!\n\n${orderDetails}\n\nИтого: ${total.toLocaleString()} ₽\n\nМы свяжемся с вами для уточнения деталей.`);
-            
-            cart = [];
-            updateCart();
-            toggleCart();
-        }
-
-        function showNotification(message) {
-            const notification = document.createElement('div');
-            notification.className = 'notification';
-            notification.textContent = message;
-            document.body.appendChild(notification);
-            
-            setTimeout(() => {
-                notification.remove();
-            }, 3000);
-        }
-
-        // Initialize
-        displayProducts();
-
-        // Close modal on outside click
-        document.getElementById('cartModal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                toggleCart();
+            if (e.code === 'Space') {
+                e.preventDefault();
+                if (!gameOver) {
+                    if (!isJumping) {
+                        // Первый прыжок
+                        playerVelocityY = jumpForce;
+                        isJumping = true;
+                        jumpCount = 1;
+                        canDoubleJump = true;
+                    } else if (canDoubleJump && jumpCount === 1) {
+                        // Двойной прыжок
+                        playerVelocityY = doubleJumpForce;
+                        canDoubleJump = false;
+                        jumpCount = 2;
+                        showComboText("ДВОЙНОЙ ПРЫЖОК!");
+                    }
+                } else if (e.code === 'KeyR') {
+                    resetGame();
+                }
             }
         });
+        
+        window.addEventListener('keyup', (e) => {
+            keys[e.code] = false;
+        });
+
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        function showComboText(text) {
+            const comboT = document.getElementById('comboText');
+            comboT.textContent = text;
+            comboT.style.opacity = '1';
+            setTimeout(() => {
+                comboT.style.opacity = '0';
+            }, 1000);
+        }
+
+        function collectCoin(coin) {
+            scene.remove(coin);
+            const index = coins.indexOf(coin);
+            if (index > -1) coins.splice(index, 1);
+            
+            coinsCollected++;
+            combo = Math.min(combo + 1, 10);
+            if (combo > maxCombo) maxCombo = combo;
+            
+            document.getElementById('coinsValue').textContent = coinsCollected;
+            document.getElementById('comboValue').textContent = `x${combo}`;
+            
+            showComboText(`x${combo} КОМБО!`);
+        }
+
+        function resetCombo() {
+            combo = 1;
+            document.getElementById('comboValue').textContent = `x${combo}`;
+        }
+
+        function resetGame() {
+            // Удаление всех препятствий
+            obstacles.forEach(obstacle => scene.remove(obstacle));
+            obstacles.length = 0;
+            
+            // Удаление всех монет
+            coins.forEach(coin => scene.remove(coin));
+            coins.length = 0;
+            
+            // Сброс параметров
+            score = 0;
+            coinsCollected = 0;
+            combo = 1;
+            maxCombo = 1;
+            gameSpeed = 0.3;
+            gameOver = false;
+            playerVelocityY = 0;
+            isJumping = false;
+            canDoubleJump = true;
+            jumpCount = 0;
+            lastObstacleZ = -10;
+            
+            playerGroup.position.set(0, 0, 0);
+            playerGroup.visible = true;
+            
+            document.getElementById('message').style.display = 'none';
+            document.getElementById('scoreValue').textContent = '0';
+            document.getElementById('coinsValue').textContent = '0';
+            document.getElementById('comboValue').textContent = 'x1';
+            document.getElementById('progressFill').style.width = '0%';
+        }
+
+        function updateUI() {
+            document.getElementById('scoreValue').textContent = Math.floor(score);
+            document.getElementById('coinsValue').textContent = coinsCollected;
+            document.getElementById('comboValue').textContent = `x${combo}`;
+            
+            const progress = (score % 100) / 100 * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+        }
+
+        function gameLoop() {
+            if (!gameOver) {
+                animationTime += 0.016;
+                
+                // Гравитация и прыжки
+                playerVelocityY += gravity;
+                playerGroup.position.y += playerVelocityY;
+                
+                // Проверка приземления
+                if (playerGroup.position.y <= 0) {
+                    playerGroup.position.y = 0;
+                    playerVelocityY = 0;
+                    isJumping = false;
+                    canDoubleJump = true;
+                    jumpCount = 0;
+                }
+                
+                // Анимация бега
+                const runCycle = Math.sin(animationTime * 10) * 0.3;
+                leftLeg.rotation.x = runCycle;
+                rightLeg.rotation.x = -runCycle;
+                leftArm.rotation.x = -runCycle;
+                rightArm.rotation.x = runCycle;
+                
+                // Анимация прыжка
+                if (isJumping) {
+                    leftLeg.rotation.x = -0.5;
+                    rightLeg.rotation.x = 0.5;
+                    leftArm.rotation.x = -1;
+                    rightArm.rotation.x = 1;
+                    body.position.y = 1.2 + Math.sin(animationTime * 5) * 0.1;
+                } else {
+                    body.position.y = 1.2;
+                }
+                
+                // Увеличение счета и скорости
+                score += gameSpeed;
+                gameSpeed += 0.0001;
+                
+                // Движение окружения к игроку
+                [...buildings, ...trees].forEach(obj => {
+                    obj.group.position.z += gameSpeed;
+                    if (obj.group.position.z > 20) {
+                        obj.group.position.z -= 150;
+                        obj.group.position.x = (Math.random() - 0.5) * 14;
+                    }
+                });
+                
+                // Движение монет
+                coins.forEach(coin => {
+                    coin.position.z += gameSpeed;
+                    coin.rotation.z += 0.05;
+                    
+                    // Проверка сбора монет
+                    const distance = coin.position.distanceTo(playerGroup.position);
+                    if (distance < 1.5) {
+                        collectCoin(coin);
+                    }
+                });
+                
+                // Удаление далеких монет
+                for (let i = coins.length - 1; i >= 0; i--) {
+                    if (coins[i].position.z > 15) {
+                        scene.remove(coins[i]);
+                        coins.splice(i, 1);
+                        resetCombo();
+                    }
+                }
+                
+                // Создание новых монет
+                if (coins.length < 5 && Math.random() < 0.03) {
+                    createCoin(-30 - Math.random() * 10);
+                }
+                
+                // Движение препятствий
+                obstacles.forEach(obstacle => {
+                    obstacle.position.z += gameSpeed;
+                    
+                    // Проверка столкновения
+                    const playerBox = new THREE.Box3().setFromObject(playerGroup);
+                    const obstacleBox = new THREE.Box3().setFromObject(obstacle);
+                    
+                    if (playerBox.intersectsBox(obstacleBox)) {
+                        gameOver = true;
+                        playerGroup.visible = false;
+                        
+                        // Эффект взрыва
+                        for (let i = 0; i < 20; i++) {
+                            const particleGeometry = new THREE.SphereGeometry(0.1, 4, 4);
+                            const particleMaterial = new THREE.MeshBasicMaterial({ 
+                                color: new THREE.Color().setHSL(Math.random(), 1, 0.5)
+                            });
+                            const particle = new THREE.Mesh(particleGeometry, particleMaterial);
+                            particle.position.copy(playerGroup.position);
+                            particle.userData = {
+                                velocity: new THREE.Vector3(
+                                    (Math.random() - 0.5) * 0.3,
+                                    Math.random() * 0.3,
+                                    (Math.random() - 0.5) * 0.3
+                                ),
+                                life: 1
+                            };
+                            scene.add(particle);
+                        }
+                        
+                        document.getElementById('message').innerHTML = 
+                            `💥 КРАШ!<br>Дистанция: ${Math.floor(score)}м<br>Монет: ${coinsCollected}<br>Макс. комбо: x${maxCombo}<br><small>Нажми R для перезапуска</small>`;
+                        document.getElementById('message').style.display = 'block';
+                    }
+                });
+                
+                // Удаление пройденных препятствий
+                for (let i = obstacles.length - 1; i >= 0; i--) {
+                    if (obstacles[i].position.z > 15) {
+                        scene.remove(obstacles[i]);
+                        obstacles.splice(i, 1);
+                    }
+                }
+                
+                // Создание новых препятствий
+                if (obstacles.length < 4 && Math.random() < 0.02) {
+                    const z = -30 - Math.random() * 15;
+                    if (Math.abs(z - lastObstacleZ) > 8) {
+                        createObstacle(z);
+                        lastObstacleZ = z;
+                    }
+                }
+                
+                updateUI();
+            }
+            
+            // Обновление частиц при game over
+            scene.children.forEach(child => {
+                if (child.userData && child.userData.velocity) {
+                    child.position.add(child.userData.velocity);
+                    child.userData.velocity.y -= 0.01;
+                    child.userData.life -= 0.02;
+                    child.material.opacity = child.userData.life;
+                    child.material.transparent = true;
+                    
+                    if (child.userData.life <= 0) {
+                        scene.remove(child);
+                    }
+                }
+            });
+            
+            // Движение камеры
+            camera.position.x += (playerGroup.position.x - camera.position.x) * 0.1;
+            camera.position.y += (playerGroup.position.y + 2 - camera.position.y) * 0.1;
+            camera.lookAt(playerGroup.position.x, playerGroup.position.y + 1, playerGroup.position.z - 5);
+            
+            renderer.render(scene, camera);
+            requestAnimationFrame(gameLoop);
+        }
+
+        // Начальная настройка
+        for (let i = 0; i < 8; i++) {
+            createCoin(-10 - i * 3);
+            if (i < 4) createObstacle(-20 - i * 8);
+        }
+        
+        // Запуск игры
+        gameLoop();
+        
+        console.log('🏃 3D Паркур запущен!');
+        console.log('ПРОБЕЛ - прыжок (можно двойной)');
+        console.log('Собирайте монеты, уклоняйтесь от препятствий!');
+        console.log('R - перезапуск после столкновения');
     </script>
 </body>
 </html>
