@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebMarket - Продажа готовых сайтов</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #6c5ce7;
+            --secondary: #a8a4e6;
+            --dark: #2d3436;
+            --light: #f8f9fa;
+            --accent: #fd79a8;
+            --gradient: linear-gradient(135deg, #6c5ce7 0%, #a8a4e6 100%);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background: var(--light);
+        }
+
+        /* Header */
+        header {
+            background: white;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 800;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .cart-icon {
+            position: relative;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: var(--accent);
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 80px;
+            background: var(--gradient);
+            color: white;
+            padding: 6rem 2rem;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .hero-btn {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: white;
+            color: var(--primary);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .hero-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+
+        /* Products Section */
+        .products {
+            max-width: 1200px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: var(--dark);
+        }
+
+        .filters {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .filter-btn {
+            padding: 0.5rem 1.5rem;
+            border: 2px solid var(--secondary);
+            background: white;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s;
+            color: var(--dark);
+        }
+
+        .filter-btn.active,
+        .filter-btn:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+        }
+
+        .product-info {
+            padding: 1.5rem;
+        }
+
+        .product-category {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background: var(--secondary);
+            color: white;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-title {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+
+        .product-description {
+            color: #636e72;
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+        }
+
+        .product-price {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .product-price span {
+            font-size: 1rem;
+            color: #636e72;
+            font-weight: normal;
+        }
+
+        .add-to-cart {
+            width: 100%;
+            padding: 0.75rem;
+            background: var(--gradient);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: opacity 0.3s;
+        }
+
+        .add-to-cart:hover {
+            opacity: 0.9;
+        }
+
+        /* Features */
+        .features {
+            background: white;
+            padding: 4rem 2rem;
+            margin-top: 4rem;
+        }
+
+        .features-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .feature-title {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        /* Cart Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid #dfe6e9;
+        }
+
+        .cart-item button {
+            background: #ff7675;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .checkout-btn {
+            width: 100%;
+            padding: 1rem;
+            background: var(--gradient);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-top: 1rem;
+            cursor: pointer;
+        }
+
+        .close-modal {
+            float: right;
+            font-size: 1.5rem;
+            cursor: pointer;
+            background: none;
+            border: none;
+            color: var(--dark);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            text-align: left;
+        }
+
+        footer a {
+            color: var(--secondary);
+            text-decoration: none;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .notification {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #00b894;
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            animation: slideIn 0.3s ease;
+            z-index: 3000;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+            }
+            to {
+                transform: translateX(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav class="nav-container">
+            <a href="#" class="logo">WebMarket</a>
+            <div class="nav-links">
+                <a href="#products">Каталог</a>
+                <a href="#features">Преимущества</a>
+                <a href="#contact">Контакты</a>
+                <div class="cart-icon" onclick="toggleCart()">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count" id="cartCount">0</span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <h1>Готовые сайты для вашего бизнеса</h1>
+        <p>Профессиональные решения с быстрой настройкой и запуском</p>
+        <a href="#products" class="hero-btn">Смотреть каталог</a>
+    </section>
+
+    <!-- Products -->
+    <section class="products" id="products">
+        <h2 class="section-title">Наши сайты</h2>
+        
+        <div class="filters">
+            <button class="filter-btn active" onclick="filterProducts('all')">Все</button>
+            <button class="filter-btn" onclick="filterProducts('business')">Бизнес</button>
+            <button class="filter-btn" onclick="filterProducts('shop')">Интернет-магазин</button>
+            <button class="filter-btn" onclick="filterProducts('landing')">Лендинг</button>
+            <button class="filter-btn" onclick="filterProducts('portfolio')">Портфолио</button>
+        </div>
+
+        <div class="products-grid" id="productsGrid">
+            <!-- Products will be inserted by JavaScript -->
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="features" id="features">
+        <h2 class="section-title">Почему выбирают нас</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-rocket"></i></div>
+                <div class="feature-title">Быстрый запуск</div>
+                <p>Сайт готов к работе в день покупки. Мы поможем с настройкой и размещением.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-mobile-alt"></i></div>
+                <div class="feature-title">Адаптивный дизайн</div>
+                <p>Все сайты отлично выглядят на любых устройствах - от смартфона до ПК.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-headset"></i></div>
+                <div class="feature-title">Поддержка 24/7</div>
+                <p>Техническая поддержка и консультации в любое время суток.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
+                <div class="feature-title">Гарантия безопасности</div>
+                <p>SSL-сертификаты и защита от взломов включены в стоимость.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cart Modal -->
+    <div class="modal" id="cartModal">
+        <div class="modal-content">
+            <button class="close-modal" onclick="toggleCart()">&times;</button>
+            <h2>Корзина</h2>
+            <div id="cartItems">
+                <p>Корзина пуста</p>
+            </div>
+            <div id="cartTotal" style="font-size: 1.3rem; font-weight: bold; margin-top: 1rem;"></div>
+            <button class="checkout-btn" onclick="checkout()">Оформить заказ</button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="footer-content">
+            <div>
+                <h3>WebMarket</h3>
+                <p>Продажа готовых сайтов с 2020 года</p>
+            </div>
+            <div>
+                <h3>Контакты</h3>
+                <p>📧 info@webmarket.ru</p>
+                <p>📱 +7 (999) 123-45-67</p>
+            </div>
+            <div>
+                <h3>Услуги</h3>
+                <p><a href="#">Готовые сайты</a></p>
+                <p><a href="#">Настройка</a></p>
+                <p><a href="#">Поддержка</a></p>
+            </div>
+            <div>
+                <h3>Подписка</h3>
+                <input type="email" placeholder="Ваш email" style="padding: 0.5rem; width: 100%; margin-top: 0.5rem; border-radius: 5px; border: none;">
+                <button style="padding: 0.5rem 1rem; background: var(--primary); color: white; border: none; border-radius: 5px; margin-top: 0.5rem; cursor: pointer;">Подписаться</button>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Product data
+        const products = [
+            {
+                id: 1,
+                title: 'Бизнес-сайт "Корпорация"',
+                category: 'business',
+                description: 'Многостраничный сайт для крупной компании с портфолио, блогом и контактами',
+                price: 45000,
+                image: '🏢'
+            },
+            {
+                id: 2,
+                title: 'Интернет-магазин "ShopPro"',
+                category: 'shop',
+                description: 'Полнофункциональный магазин с корзиной, оплатой и каталогом товаров',
+                price: 65000,
+                image: '🛍️'
+            },
+            {
+                id: 3,
+                title: 'Лендинг "Стартап"',
+                category: 'landing',
+                description: 'Одностраничный сайт для продвижения продукта или услуги',
+                price: 25000,
+                image: '🚀'
+            },
+            {
+                id: 4,
+                title: 'Портфолио "Творчество"',
+                category: 'portfolio',
+                description: 'Сайт-портфолио для дизайнеров, фотографов и художников',
+                price: 20000,
+                image: '🎨'
+            },
+            {
+                id: 5,
+                title: 'Магазин "FashionStore"',
+                category: 'shop',
+                description: 'Стильный интернет-магазин одежды с фильтрами и поиском',
+                price: 55000,
+                image: '👗'
+            },
+            {
+                id: 6,
+                title: 'Лендинг "Мероприятие"',
+                category: 'landing',
+                description: 'Сайт для конференций, вебинаров и онлайн-мероприятий',
+                price: 20000,
+                image: '📅'
+            },
+            {
+                id: 7,
+                title: 'Бизнес "Консалтинг"',
+                category: 'business',
+                description: 'Сайт для консалтинговой компании с формой обратной связи',
+                price: 40000,
+                image: '💼'
+            },
+            {
+                id: 8,
+                title: 'Портфолио "Фотограф"',
+                category: 'portfolio',
+                description: 'Сайт с галереей для фотографов с возможностью заказа',
+                price: 22000,
+                image: '📸'
+            }
+        ];
+
+        // Cart state
+        let cart = [];
+        let currentFilter = 'all';
+
+        // Display products
+        function displayProducts(filter = 'all') {
+            const grid = document.getElementById('productsGrid');
+            const filtered = filter === 'all' ? products : products.filter(p => p.category === filter);
+            
+            grid.innerHTML = filtered.map(product => `
+                <div class="product-card">
+                    <div class="product-image">${product.image}</div>
+                    <div class="product-info">
+                        <span class="product-category">${getCategoryName(product.category)}</span>
+                        <h3 class="product-title">${product.title}</h3>
+                        <p class="product-description">${product.description}</p>
+                        <div class="product-price">${product.price.toLocaleString()} ₽</div>
+                        <button class="add-to-cart" onclick="addToCart(${product.id})">
+                            <i class="fas fa-cart-plus"></i> В корзину
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function getCategoryName(category) {
+            const names = {
+                'business': 'Бизнес',
+                'shop': 'Магазин',
+                'landing': 'Лендинг',
+                'portfolio': 'Портфолио'
+            };
+            return names[category] || category;
+        }
+
+        // Filter products
+        function filterProducts(category) {
+            currentFilter = category;
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            displayProducts(category);
+        }
+
+        // Cart functions
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            const existingItem = cart.find(item => item.id === productId);
+            
+            if (existingItem) {
+                existingItem.quantity++;
+            } else {
+                cart.push({ ...product, quantity: 1 });
+            }
+            
+            updateCart();
+            showNotification(`${product.title} добавлен в корзину`);
+        }
+
+        function removeFromCart(productId) {
+            cart = cart.filter(item => item.id !== productId);
+            updateCart();
+        }
+
+        function updateCart() {
+            const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+            document.getElementById('cartCount').textContent = count;
+            
+            if (document.getElementById('cartModal').classList.contains('active')) {
+                displayCartItems();
+            }
+        }
+
+        function displayCartItems() {
+            const cartItems = document.getElementById('cartItems');
+            const cartTotal = document.getElementById('cartTotal');
+            
+            if (cart.length === 0) {
+                cartItems.innerHTML = '<p>Корзина пуста</p>';
+                cartTotal.innerHTML = '';
+                return;
+            }
+            
+            cartItems.innerHTML = cart.map(item => `
+                <div class="cart-item">
+                    <div>
+                        <strong>${item.title}</strong>
+                        <p>${item.quantity} × ${item.price.toLocaleString()} ₽</p>
+                    </div>
+                    <div>
+                        <span>${(item.price * item.quantity).toLocaleString()} ₽</span>
+                        <button onclick="removeFromCart(${item.id})">Удалить</button>
+                    </div>
+                </div>
+            `).join('');
+            
+            const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+            cartTotal.innerHTML = `Итого: ${total.toLocaleString()} ₽`;
+        }
+
+        function toggleCart() {
+            const modal = document.getElementById('cartModal');
+            modal.classList.toggle('active');
+            if (modal.classList.contains('active')) {
+                displayCartItems();
+            }
+        }
+
+        function checkout() {
+            if (cart.length === 0) {
+                alert('Корзина пуста');
+                return;
+            }
+            
+            const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+            const orderDetails = cart.map(item => 
+                `${item.title} - ${item.quantity} шт. - ${(item.price * item.quantity).toLocaleString()} ₽`
+            ).join('\n');
+            
+            alert(`Заказ оформлен!\n\n${orderDetails}\n\nИтого: ${total.toLocaleString()} ₽\n\nМы свяжемся с вами для уточнения деталей.`);
+            
+            cart = [];
+            updateCart();
+            toggleCart();
+        }
+
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+
+        // Initialize
+        displayProducts();
+
+        // Close modal on outside click
+        document.getElementById('cartModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                toggleCart();
+            }
+        });
+    </script>
+</body>
+</html>
