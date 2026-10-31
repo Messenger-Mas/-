@@ -77,6 +77,16 @@
             font-size: 13px;
             margin-top: 10px;
         }
+        #passwordDisplay {
+            margin-top: 15px;
+            font-size: 15px;
+            color: #764ba2;
+            font-weight: bold;
+            background: #f0eaff;
+            padding: 8px;
+            border-radius: 8px;
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -89,6 +99,7 @@
         </div>
         <div id="result"></div>
         <div class="info" id="info"></div>
+        <div id="passwordDisplay"></div>
     </div>
 
     <script>
@@ -101,6 +112,7 @@
         const result = document.getElementById('result');
         const info = document.getElementById('info');
         const inputArea = document.getElementById('inputArea');
+        const passwordDisplay = document.getElementById('passwordDisplay');
 
         // Генерация 4-значного пароля из цифр (0000-9999)
         function generatePassword() {
@@ -115,8 +127,10 @@
             inputArea.style.display = 'block';
             passwordInput.value = '';
             passwordInput.focus();
-            // Для проверки в консоли (можно удалить)
-            console.log('Секретный пароль:', secretPassword);
+
+            // Показываем пароль снизу
+            passwordDisplay.style.display = 'block';
+            passwordDisplay.textContent = 'Пароль: ' + secretPassword;
         });
 
         checkBtn.addEventListener('click', checkPassword);
