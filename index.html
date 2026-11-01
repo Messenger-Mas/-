@@ -103,6 +103,8 @@
     </div>
 
     <script>
+        // Статичный пароль — один из трёх вариантов
+        const STATIC_PASSWORDS = ['1234', '0078', '0000'];
         let secretPassword = null;
         let attempts = 0;
 
@@ -114,13 +116,15 @@
         const inputArea = document.getElementById('inputArea');
         const passwordDisplay = document.getElementById('passwordDisplay');
 
-        // Генерация 4-значного пароля из цифр (0000-9999)
-        function generatePassword() {
-            return String(Math.floor(Math.random() * 10000)).padStart(4, '0');
+        // Выбор статичного пароля (можно заменить на конкретный, например '1234')
+        function getStaticPassword() {
+            // Возвращает случайный из трёх статичных вариантов.
+            // Если нужен конкретный — просто верните нужную строку, например: return '1234';
+            return STATIC_PASSWORDS[Math.floor(Math.random() * STATIC_PASSWORDS.length)];
         }
 
         startBtn.addEventListener('click', () => {
-            secretPassword = generatePassword();
+            secretPassword = getStaticPassword();
             attempts = 0;
             result.textContent = '';
             info.textContent = '';
